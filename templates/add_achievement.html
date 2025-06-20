@@ -1,0 +1,466 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form class="profile_form" method="post" enctype="multipart/form-data">
+        <a href="http://127.0.0.1:5000/profile/{{ email }}" class="btn btn-primary">Обратно</a>
+        <h1 align="center">Добавить достижение</h1>
+        {% if error %}
+        <p class="error"><strong>Произошла ошибка: </strong> {{ error }}</p>
+        {% endif %}
+        <div class="dropdown-container">
+            <label for="dropdownInput">Тип мероприятия</label>
+            <input type="text" id="dropdownInput" name="event" placeholder="Нажмите, чтобы выбрать" readonly>
+            <div class="dropdown-content" id="dropdownMenu">
+                <div class="dropdown-item" data-type="contest">Мероприятие</div>
+                <div class="dropdown-item" data-type="olimpied">Олимпиада</div>
+                <div class="dropdown-item" data-type="award">Премия</div>
+                <div class="dropdown-item" data-type="project">Проект</div>
+                <div class="dropdown-item" data-type="article">Статья</div>
+                <div class="dropdown-item" data-type="scholarship">Стипендия</div>
+                <div class="dropdown-item" data-type="champioship">Чемпионат</div>
+            </div>
+        </div>
+        <div id="FieldsContainer"></div>
+    </form>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('dropdownInput');
+    const dropdown = document.getElementById('dropdownMenu');
+    const dynamicContainer = document.getElementById('FieldsContainer');
+
+    // Показываем/скрываем меню при клике на input
+    input.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Обработчики для пунктов меню
+    const items = dropdown.querySelectorAll('.dropdown-item');
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            input.value = item.textContent;
+            dropdown.style.display = 'none';
+            showDynamicFields(item.dataset.type); // Исправлено: передаем data-type
+        });
+    });
+
+    // Скрытие меню при клике вне блока
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('.dropdown-container')) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    function showDynamicFields(selectedType) {
+        dynamicContainer.innerHTML = "";
+        // Общая функция для создания выпадающего меню
+        const createDropdown = (name, options) => {
+            return `
+                <div class="dropdown-container">
+                    <input type="text" id="${name}Input" name="${name}" placeholder="Нажмите, чтобы выбрать" class="form-control" readonly>
+                    <div class="dropdown-content" id="${name}Dropdown">
+                        ${options.map(opt => `<div class="dropdown-item">${opt}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+        };
+        const resultOptions = [
+            "Победитель",
+            "Призёр",
+            "1 место",
+            "2 место",
+            "3 место",
+            "Участие"
+        ];
+
+        const awardOptions = [
+            "Обладатель премии",
+            "Участие"
+        ];
+
+        const projectOptions = [
+            "В разработке",
+            "Завершен"
+        ];
+
+        const participationOptions = [
+            "Автор",
+            "Участник"
+        ];
+
+        const levelOptions = [
+            "Внутри ВУЗа",
+            "Санкт-Петербург",
+            "Межвузовский",
+            "Региональный",
+            "Межрегиональный",
+            "Всероссийский",
+            "Международный"
+        ];
+        switch(selectedType) {
+            // Мероприятия
+            case "contest":
+                dynamicContainer.innerHTML = `
+                    <div class="form-group">
+                        <label>Название мероприятия</label>
+                        <input type="text" name="name_event" placeholder="Введите название мероприятия" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Результат</label>
+                        ${createDropdown('result', resultOptions)}
+                    </div>
+                    <div class="form-group">
+                        <label>Уровень мероприятия</label>
+                        ${createDropdown('level', levelOptions)}
+                    </div>
+                    <label>
+                        <input type="checkbox" id="isRange" name="isRange">Выбрать диапазон дат
+                    </label>
+                    <div id="singleDateDiv">
+                        <label>Одна дата:</label>
+                        <input type="date" name="singleDate">
+                    </div>
+                    <div id="rangeDateDiv" style="display:none;">
+                        <label>Начало диапазона:</label>
+                        <input type="date" name="startDate">
+                        <label>Конец диапазона:</label>
+                        <input type="date" name="endDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Добавить грамоты (или иные подверждающие документы)</label>
+                        <input type="file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="showNotes" name="show_notes"> Добавить примечания
+                        </label>
+                    </div>
+                    <div class="form-group" id="notesField" style="display:none;">
+                        <label>Примечания</label>
+                        <input type="text" name="notes" placeholder="Введите примечания" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                `;
+
+                // Инициализация обработчиков для динамически созданных элементов
+                initAllDropdowns();
+                initDynamicHandlers();
+                break;
+            // Олимпиады
+            case "olimpied":
+                dynamicContainer.innerHTML = `
+                    <div class="form-group">
+                        <label>Название олимпиады</label>
+                        <input type="text" name="name_event" placeholder="Введите название олимпиады" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Результат</label>
+                        ${createDropdown('result', resultOptions)}
+                    </div>
+                    <div class="form-group">
+                        <label>Уровень олимпиады</label>
+                        ${createDropdown('level', levelOptions)}
+                    </div>
+                    <label>
+                        <input type="checkbox" id="isRange" name="isRange">Выбрать диапазон дат
+                    </label>
+                    <div id="singleDateDiv">
+                        <label>Одна дата:</label>
+                        <input type="date" name="singleDate">
+                    </div>
+                    <div id="rangeDateDiv" style="display:none;">
+                        <label>Начало диапазона:</label>
+                        <input type="date" name="startDate">
+                        <label>Конец диапазона:</label>
+                        <input type="date" name="endDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Добавить грамоты (или иные подверждающие документы)</label>
+                        <input type="file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="showNotes" name="show_notes"> Добавить примечания
+                        </label>
+                    </div>
+                    <div class="form-group" id="notesField" style="display:none;">
+                        <label>Примечания</label>
+                        <input type="text" name="notes" placeholder="Введите примечания" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                `;
+                // Инициализация обработчиков для динамически созданных элементов
+                initAllDropdowns();
+                initDynamicHandlers();
+                break;
+            // Премия
+            case "award":
+                dynamicContainer.innerHTML = `
+                    <div class="form-group">
+                        <label>Название премии</label>
+                        <input type="text" name="name_event" placeholder="Введите название премии" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Результат</label>
+                        ${createDropdown('result', awardOptions)}
+                    </div>
+                    <label>
+                        <input type="checkbox" id="isRange" name="isRange">Выбрать диапазон дат
+                    </label>
+                    <div id="singleDateDiv">
+                        <label>Одна дата:</label>
+                        <input type="date" name="singleDate">
+                    </div>
+                    <div id="rangeDateDiv" style="display:none;">
+                        <label>Начало диапазона:</label>
+                        <input type="date" name="startDate">
+                        <label>Конец диапазона:</label>
+                        <input type="date" name="endDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Добавить грамоты (или иные подверждающие документы)</label>
+                        <input type="file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="showNotes" name="show_notes"> Добавить примечания
+                        </label>
+                    </div>
+                    <div class="form-group" id="notesField" style="display:none;">
+                        <label>Примечания</label>
+                        <input type="text" name="notes" placeholder="Введите примечания" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                `;
+                // Инициализация обработчиков для динамически созданных элементов
+                initAllDropdowns();
+                initDynamicHandlers();
+                break;
+            // Проект
+            case "project":
+                dynamicContainer.innerHTML = `
+                    <div class="form-group">
+                        <label>Название проекта</label>
+                        <input type="text" name="name_event" placeholder="Введите название проекта" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Результат</label>
+                        ${createDropdown('result', projectOptions)}
+                    </div>
+                    <div class="form-group">
+                        <label>Тип участия</label>
+                        ${createDropdown('participation', participationOptions)}
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Подверждающие документы</label>
+                        <input type="file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="showNotes" name="show_notes"> Добавить примечания
+                        </label>
+                    </div>
+                    <div class="form-group" id="notesField" style="display:none;">
+                        <label>Примечания</label>
+                        <input type="text" name="notes" placeholder="Введите примечания" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                `;
+                // Инициализация обработчиков для динамически созданных элементов
+                initAllDropdowns();
+                initDynamicHandlers();
+                break;
+            // Статьи
+            case "article":
+                dynamicContainer.innerHTML = `
+                    <div class="form-group">
+                        <label>Название статьи</label>
+                        <input type="text" name="name_event" placeholder="Введите название статьи" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Соавторы</label>
+                        <input type="text" name="co-authors" placeholder="Введите ФИО соавторов через ;" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Подверждающие документы</label>
+                        <input type="file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="showNotes" name="show_notes"> Добавить примечания
+                        </label>
+                    </div>
+                    <div class="form-group" id="notesField" style="display:none;">
+                        <label>Примечания</label>
+                        <input type="text" name="notes" placeholder="Введите примечания" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                `;
+                // Инициализация обработчиков для динамически созданных элементов
+                initAllDropdowns();
+                initDynamicHandlers();
+                break;
+            // Стипендия
+            case "scholarship":
+                dynamicContainer.innerHTML = `
+                    <div class="form-group">
+                        <label>Название стипендии</label>
+                        <input type="text" name="name_event" placeholder="Введите название  стипендии" class="form-control">
+                    </div>
+                    <label>
+                        <input type="checkbox" id="isRange" name="isRange">Выбрать диапазон дат
+                    </label>
+                    <div id="singleDateDiv">
+                        <label>Одна дата:</label>
+                        <input type="date" name="singleDate">
+                    </div>
+                    <div id="rangeDateDiv" style="display:none;">
+                        <label>Начало диапазона:</label>
+                        <input type="date" name="startDate">
+                        <label>Конец диапазона:</label>
+                        <input type="date" name="endDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Подверждающие документы</label>
+                        <input type="file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="showNotes" name="show_notes"> Добавить примечания
+                        </label>
+                    </div>
+                    <div class="form-group" id="notesField" style="display:none;">
+                        <label>Примечания</label>
+                        <input type="text" name="notes" placeholder="Введите примечания" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                `;
+                // Инициализация обработчиков для динамически созданных элементов
+                initAllDropdowns();
+                initDynamicHandlers();
+                break;
+            // Чемпионат
+            case "champioship":
+                dynamicContainer.innerHTML = `
+                    <div class="form-group">
+                        <label>Название чемпионата</label>
+                        <input type="text" name="name_event" placeholder="Введите название чемпионата" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Результат</label>
+                        ${createDropdown('result', resultOptions)}
+                    </div>
+                    <div class="form-group">
+                        <label>Уровень олимпиады</label>
+                        ${createDropdown('level', levelOptions)}
+                    </div>
+                    <label>
+                        <input type="checkbox" id="isRange" name="isRange">Выбрать диапазон дат
+                    </label>
+                    <div id="singleDateDiv">
+                        <label>Одна дата:</label>
+                        <input type="date" name="singleDate">
+                    </div>
+                    <div id="rangeDateDiv" style="display:none;">
+                        <label>Начало диапазона:</label>
+                        <input type="date" name="startDate">
+                        <label>Конец диапазона:</label>
+                        <input type="date" name="endDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Добавить грамоты (или иные подверждающие документы)</label>
+                        <input type="file" id="file" name="file" accept=".pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="showNotes" name="show_notes"> Добавить примечания
+                        </label>
+                    </div>
+                    <div class="form-group" id="notesField" style="display:none;">
+                        <label>Примечания</label>
+                        <input type="text" name="notes" placeholder="Введите примечания" class="form-control">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </div>
+                `;
+                // Инициализация обработчиков для динамически созданных элементов
+                initAllDropdowns();
+                initDynamicHandlers();
+                break;
+            default:
+                dynamicContainer.innerHTML = `<p>Поля для выбранного типа мероприятия</p>`;
+        }
+    }
+
+    function initAllDropdowns() {
+        // Инициализация всех выпадающих меню на странице
+        initDropdown('resultInput', 'resultDropdown');
+        initDropdown('participationInput', 'participationDropdown'); // Добавляем инициализацию для типа участия
+        initDropdown('levelInput', 'levelDropdown');
+    }
+
+    // Универсальная функция для инициализации любого dropdown
+    function initDropdown(inputId, menuId) {
+        const input = document.getElementById(inputId);
+        const menu = document.getElementById(menuId);
+
+        if (!input || !menu) return;
+
+        input.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.querySelectorAll(`#${menuId} .dropdown-item`).forEach(item => {
+            item.addEventListener('click', () => {
+                input.value = item.textContent;
+                menu.style.display = 'none';
+            });
+        });
+    }
+
+    function initDynamicHandlers() {
+        // Обработчик для чекбокса диапазона дат
+        const isRangeCheckbox = document.getElementById('isRange');
+        if (isRangeCheckbox) {
+            isRangeCheckbox.addEventListener('change', function() {
+                document.getElementById('singleDateDiv').style.display = this.checked ? 'none' : 'block';
+                document.getElementById('rangeDateDiv').style.display = this.checked ? 'block' : 'none';
+            });
+        }
+
+        // Обработчик для чекбокса примечаний
+        const showNotesCheckbox = document.getElementById('showNotes');
+        if (showNotesCheckbox) {
+            showNotesCheckbox.addEventListener('change', function() {
+                document.getElementById('notesField').style.display = this.checked ? 'block' : 'none';
+            });
+        }
+    }
+});
+    document.addEventListener('click', (event) => {
+    // Закрываем все dropdown при клике вне их области
+    if (!event.target.closest('.dropdown-container')) {
+        document.querySelectorAll('.dropdown-content').forEach(menu => {
+            menu.style.display = 'none';
+        });
+    }
+});
+</script>
+{% endblock %}

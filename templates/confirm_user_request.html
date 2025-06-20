@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form method="post">
+        {% if error %}
+            <p class="error"><strong>Произошла ошибка: </strong>{{ error }}</p>
+        {% endif %}
+        <table class="table2">
+            <tbody>
+            <tr>
+                <td>ФИО</td>
+                <td>{{ user.surname }} {{ user.name }} {{ user.s_name }}</td>
+            </tr>
+            <tr>
+                <td>Группа</td>
+                <td>{{ user.group }}</td>
+            </tr>
+            <tr>
+                <td>Роль</td>
+                <td>
+                    <div class="dropdown-container">
+                        <input type="text" id="dropdownInput" name="role" placeholder="Нажмите, чтобы выбрать" readonly>
+                        <div class="dropdown-content" id="dropdownMenu">
+                            <div class="dropdown-item">Студент</div>
+                            <div class="dropdown-item">Администратор</div>
+                            <div class="dropdown-item">Куратор</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="button-container">
+            <button type="submit" name="action" value="approve" class="btn btn-primary">Подвердить</button>
+            <button type="submit" name="action" value="back" class="btn btn-primary">Обратно</button>
+        </div>
+    </form>
+</div>
+<script>
+    const input = document.getElementById('dropdownInput');
+    const dropdown = document.getElementById('dropdownMenu');
+    // Показываем/скрываем меню при клике на input
+    input.addEventListener('click', () => {
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    // Навесим обработчик на каждый пункт
+    const items = dropdown.querySelectorAll('.dropdown-item');
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            input.value = item.textContent;
+            dropdown.style.display = 'none';
+        });
+    });
+    // Скрываем меню, если клик вне блока
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('.dropdown-container')) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

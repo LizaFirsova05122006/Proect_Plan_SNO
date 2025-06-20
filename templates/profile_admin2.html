@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form class="profile_form" method="post" enctype="multipart/form-data">
+        <div class="flex-container">
+            <img src="/static/img/profile/{{ email}}/{{ photo }}" alt=”фото_профиля” width="200px" height="200px">
+            <div class="profile_text">
+                <h4>ФИО: {{ user.surname }} {{ user.name }} {{ user.s_name }}</h4>
+                <h4>Роль: Администратор</h4>
+                <h4>Группа: {{ user.group }}</h4>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="file">Сменить фото профиля:</label><br>
+            <input type="file" id="file" name="file" accept=".jpg, .png">
+        </div>
+        <button type="submit" class="btn btn-primary">Сменить</button>
+        <br></br>
+        <h1 align="center">Доступные функции</h1>
+    </form>
+</div>
+<div>
+    <form method="post">
+        <table class="table3">
+            <tbody>
+            <tr>
+                <td><a href="http://127.0.0.1:5000" class="btn btn-primary">Выйти из профиля</a></td>
+                <td><a href="http://127.0.0.1:5000/add/achievement/{{ email }}" class="btn btn-primary">Добавить
+                    достижение</a></td>
+                <td><a href="http://127.0.0.1:5000/confirm_request/{{ email }}" class="btn btn-primary">Заявки на
+                    вступление</a></td>
+                <td><a href="http://127.0.0.1:5000/users/{{ email }}" class="btn btn-primary">Пользователи</a></td>
+            </tr>
+            <tr>
+                <td><a href="http://127.0.0.1:5000/view/achievement/{{ email }}" class="btn btn-primary">Просмотреть достижения</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<a href="http://127.0.0.1:5000/chat/help/user/{{ email }}" class="image-button">
+    <img src="/static/chat_help.png" alt="Иконка помощи">
+</a>
+{% endblock %}

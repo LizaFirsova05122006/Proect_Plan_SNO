@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form class="confirm_form" method="post">
+        <a href="http://127.0.0.1:5000/profile/{{ email }}" class="btn btn-primary">Обратно</a>
+        <h1 align="center">Количество заявок: {{ county }}</h1>
+    </form>
+</div>
+<div class="form-content">
+    {% for item in users %}
+    <div id="form{{ loop.index }}">
+        <form action="" method="post">
+            <input type="hidden" name="item_index" value="{{ item.id }}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Группа</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ item.surname }} {{ item.name }} {{ item.s_name }}</td>
+                    <td>{{ item.group }}</td>
+                    <td><button type="submit" name="action" value="approve" class="btn btn-primary">Одобрить</button></td>
+                    <td><button type="submit" name="action" value="reject" class="btn btn-primary">Отклонить</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

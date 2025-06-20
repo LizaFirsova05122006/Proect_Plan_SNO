@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <form class="login_form" method="post">
+        <h1 align="center">Заявка на вступление в СНО кафедры О7</h1>
+        {% if error %}
+            <p class="error"><strong>Произошла ошибка: </strong>{{ error }}</p>
+        {% endif %}
+        <div class="form-group">
+            <label>Ваша фамилия</label>
+            <input type="text" name="surname" placeholder="Введите свою фамилию" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Ваше имя</label>
+            <input type="text" name="name" placeholder="Введите свое имя" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Ваше отчество</label>
+            <input type="text" name="s_name" placeholder="Введите свое отчество" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Ваша группа</label>
+            <input type="text" name="group" placeholder="Введите свою группу" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Адрес электронной почты</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите адрес электронной почты" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Подать заявку</button>
+        </div>
+        <p>Есть аккаунт? <a href="http://127.0.0.1:5000">Войти</a></p>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div>
+    <a href="http://127.0.0.1:5000/chat/help/user/{{ email }}" class="btn btn-primary">Обратно</a>
+    <form method="post">
+        <h1 align="center">Редактирование вопросов FAQ</h1>
+        <div>
+            {% for item in faq %}
+            <table class="table4">
+                <tbody>
+                <button type="submit" name="action" value="delete_{{ item.id }}" class="btn btn-primary save-btn">Удалить</button>
+                <tr>
+                    <td>Вопрос</td>
+                    <td>{{ item.question }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check_{{ item.id }}" class="form-check-input change-checkbox"
+                                   id="exampleCheck1_{{ item.id }}" value="1" data-item="{{ item.id }}">
+                            <label class="form-check-label" for="exampleCheck1_{{ item.id }}">Изменить</label>
+                            <input type="hidden" name="check_{{ item.id }}" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv1_{{ item.id }}" style="display: none;">
+                            <input type="text" class="input-field" id="textInput1_{{ item.id }}" name="question_{{ item.id }}"
+                                   placeholder="Введите вопрос для замены"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ответ</td>
+                    <td>{{ item.answer }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check2_{{ item.id }}" class="form-check-input change-checkbox"
+                                   id="exampleCheck2_{{ item.id }}" value="1" data-item="{{ item.id }}">
+                            <label class="form-check-label" for="exampleCheck2_{{ item.id }}">Изменить</label>
+                            <input type="hidden" name="check2_{{ item.id }}" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv2_{{ item.id }}" style="display: none;">
+                            <input type="text" class="input-field" id="textInput2_{{ item.id }}" name="answer_{{ item.id }}"
+                                   placeholder="Введите ответ для замены"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button type="submit" name="action" value="save_{{ item.id }}" class="btn btn-primary save-btn" id="saveButton_{{ item.id }}" style="display: none;">
+                    Сохранить
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+
+<script>
+    // Функция для переключения видимости полей ввода
+    function toggleInput(checkboxId, inputDivId, itemId) {
+        const checkbox = document.getElementById(checkboxId);
+        const inputDiv = document.getElementById(inputDivId);
+        inputDiv.style.display = checkbox.checked ? 'block' : 'none';
+        checkSaveButtonVisibility(itemId);
+    }
+
+    // Функция для проверки, нужно ли показывать кнопку сохранения
+    function checkSaveButtonVisibility(itemId) {
+        const checkboxes = document.querySelectorAll('.change-checkbox[data-item="' + itemId + '"]');
+        const saveButton = document.getElementById('saveButton_' + itemId);
+        let showButton = false;
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                showButton = true;
+            }
+        });
+
+        saveButton.style.display = showButton ? 'block' : 'none';
+    }
+
+    // Назначаем обработчики событий для всех чекбоксов
+    document.querySelectorAll('.change-checkbox').forEach(checkbox => {
+        const itemId = checkbox.getAttribute('data-item');
+        const isQuestion = checkbox.id.startsWith('exampleCheck1');
+
+        checkbox.addEventListener('change', function() {
+            const inputDivId = isQuestion ? `textInputDiv1_${itemId}` : `textInputDiv2_${itemId}`;
+            toggleInput(checkbox.id, inputDivId, itemId);
+        });
+    });
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        // Проверяем все элементы при загрузке
+        {% for item in faq %}
+        checkSaveButtonVisibility("{{ item.id }}");
+        {% endfor %}
+    });
+</script>
+{% endblock %}

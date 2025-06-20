@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form class="add_data_form" method="post">
+        <h1>Добавить данные</h1>
+        {% if error %}
+            <p class="error"><strong>Произошла ошибка: </strong> {{ error }}</p>
+        {% endif %}
+        <div class="form-group">
+            <label for="exampleInputEmail1">Адрес электронной почты</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите адрес электронной почты" required>
+        </div>
+        <div class="form-group">
+            <label>Дата рождения</label>
+            <input type="date" name="date_bh" required>
+        </div>
+        <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Введите свой пароль" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

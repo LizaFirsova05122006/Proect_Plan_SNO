@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form method="post">
+        <h1 align="center">Изменить данные</h1>
+        <div>
+            <table class="table4">
+                <tbody>
+                <tr>
+                    <td>Фамилия</td>
+                    <td>{{ user.surname }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check" class="form-check-input" id="exampleCheck1" value="1">
+                            <label class="form-check-label" for="exampleCheck1">Изменить</label>
+                            <input type="hidden" name="check" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv1" style="display: none;">
+                            <input type="text" id="textInput1" name="surname" placeholder="Введите фамилию для замены"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Имя</td>
+                    <td>{{ user.name }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check2" class="form-check-input" id="exampleCheck2" value="1">
+                            <label class="form-check-label" for="exampleCheck2">Изменить</label>
+                            <input type="hidden" name="check2" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv2" style="display: none;">
+                            <input type="text" id="textInput2" name="name" placeholder="Введите имя для замены"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Отчество</td>
+                    <td>{{ user.s_name }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check3" class="form-check-input" id="exampleCheck3" value="1">
+                            <label class="form-check-label" for="exampleCheck3">Изменить</label>
+                            <input type="hidden" name="check3" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv3" style="display: none;">
+                            <input type="text" id="textInput3" name="s_name" placeholder="Введите отчество для замены"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Группа</td>
+                    <td>{{ user.group }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check4" class="form-check-input" id="exampleCheck4" value="1">
+                            <label class="form-check-label" for="exampleCheck4">Изменить</label>
+                            <input type="hidden" name="check4" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv4" style="display: none;">
+                            <input type="text" id="textInput4" name="group" placeholder="Введите группу для замены"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Дата рождения</td>
+                    <td>{{ user.date_birth }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check7" class="form-check-input" id="exampleCheck7" value="1">
+                            <label class="form-check-label" for="exampleCheck7">Изменить</label>
+                            <input type="hidden" name="check7" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv7" style="display: none;">
+                            <label for="textInput7">Выберите дату рождения для замены:</label><br>
+                            <input type="date" id="textInput7" name="date_bh"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Адрес электронной почты</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check5" class="form-check-input" id="exampleCheck5" value="1">
+                            <label class="form-check-label" for="exampleCheck5">Изменить</label>
+                            <input type="hidden" name="check5" value="0">
+                        </div>
+                        <div class="input-text" id="textInputDiv5" style="display: none;">
+                            <input type="email" id="textInput5" name="email" placeholder="Введите адрес электронной почты для замены"><br><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Роль</td>
+                    <td>{{ user.roles.role }}</td>
+                    <td>
+                        <div class="form-group form-check">
+                            <input type="checkbox" name="check6" class="form-check-input" id="exampleCheck6" value="1">
+                            <label class="form-check-label" for="exampleCheck6">Изменить</label>
+                            <input type="hidden" name="check6" value="0">
+                        </div>
+                        <div class="dropdown-container2" id="textInputDiv6" style="display: none;">
+                            <input type="text" id="dropdownInput" name="role" placeholder="Нажмите, чтобы выбрать"
+                                   readonly>
+                            <div class="dropdown-content" id="dropdownMenu">
+                                <div class="dropdown-item">Студент</div>
+                                <div class="dropdown-item">Администратор</div>
+                                <div class="dropdown-item">Куратор</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Изменить</button>
+            <a href="http://127.0.0.1:5000/users/{{ email }}" class="btn btn-primary">Обратно</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleInput(checkboxId, inputDivId) {
+        const checkbox = document.getElementById(checkboxId);
+        const inputDiv = document.getElementById(inputDivId);
+        inputDiv.style.display = checkbox.checked ? 'block' : 'none';
+    }
+
+    document.getElementById('exampleCheck1').addEventListener('change', function() {
+        toggleInput('exampleCheck1', 'textInputDiv1');
+    });
+    document.getElementById('exampleCheck2').addEventListener('change', function() {
+        toggleInput('exampleCheck2', 'textInputDiv2');
+    });
+    document.getElementById('exampleCheck3').addEventListener('change', function() {
+        toggleInput('exampleCheck3', 'textInputDiv3');
+    });
+    document.getElementById('exampleCheck4').addEventListener('change', function() {
+        toggleInput('exampleCheck4', 'textInputDiv4');
+    });
+    document.getElementById('exampleCheck5').addEventListener('change', function() {
+        toggleInput('exampleCheck5', 'textInputDiv5');
+    });
+    document.getElementById('exampleCheck6').addEventListener('change', function() {
+        toggleInput('exampleCheck6', 'textInputDiv6');
+    });
+    document.getElementById('exampleCheck7').addEventListener('change', function() {
+        toggleInput('exampleCheck7', 'textInputDiv7');
+    });
+    const input = document.getElementById('dropdownInput');
+    const dropdown = document.getElementById('dropdownMenu');
+    // Показываем/скрываем меню при клике на input
+    input.addEventListener('click', () => {
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    });
+    // Навесим обработчик на каждый пункт
+    const items = dropdown.querySelectorAll('.dropdown-item');
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            input.value = item.textContent;
+            dropdown.style.display = 'none';
+        });
+    });
+    // Скрываем меню, если клик вне блока
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('.dropdown-container2')) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

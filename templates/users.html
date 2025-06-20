@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<a href="http://127.0.0.1:5000/profile/{{ email }}" class="btn btn-primary">Обратно</a>
+<div class="form-content">
+    {% for item in user %}
+    <div id="form{{ loop.index }}">
+        <form action="" method="post">
+            <input type="hidden" name="item_index" value="{{ item.id }}">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Группа</th>
+                        <th scope="col">Роль</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ item.surname }} {{ item.name }} {{ item.s_name }}</td>
+                        <td>{{ item.group }}</td>
+                        <td>{{ item.roles.role }}</td>
+                        <td><button type="submit" name="action" value="edit" class="btn btn-primary">Изменить информацию</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

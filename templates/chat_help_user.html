@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="topnav">
+    <a href="http://127.0.0.1:5000/profile/{{ email }}">Обратно</a>
+    <a class="active" href="http://127.0.0.1:5000/chat/help/user/{{ email }}">FAQ</a>
+    <a href="http://127.0.0.1:5000/chat/help/user/requests/{{ email }}">Обращения</a>
+</div>
+<br>
+<div class="faq-container">
+    <h2 align="center">Часто задаваемые вопросы</h2>
+    {% if user %}
+    <div class="button-container">
+        <a href="http://127.0.0.1:5000/chat/help/user/edit/{{ email }}" class="btn btn-primary">Редактировать</a>
+        <a href="http://127.0.0.1:5000/chat/help/user/add/{{ email }}" class="btn btn-primary">Добавить</a>
+    </div>
+    {% endif %}
+    {% for item in faq %}
+    <div class="faq-item">
+        <div class="faq-question">
+            <h3>{{ item.question }}</h3>
+            <div class="arrow">▼</div>
+        </div>
+        <div class="faq-answer">
+            <p>{{ item.answer }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentNode;
+            item.classList.toggle('active');
+        });
+    });
+</script>
+{% endblock %}

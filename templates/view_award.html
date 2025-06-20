@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div class="topnav">
+    <a href="http://127.0.0.1:5000/profile/{{ email }}">Обратно</a>
+    <a href="http://127.0.0.1:5000/view/achievement/{{ email }}">Мероприятия</a>
+    <a href="http://127.0.0.1:5000/view/olimpied/{{ email }}">Олимпиады</a>
+    <a class="active" href="http://127.0.0.1:5000/view/award/{{ email }}">Премии</a>
+    <a href="http://127.0.0.1:5000/view/project/{{ email }}">Проекты</a>
+    <a href="http://127.0.0.1:5000/view/article/{{ email }}">Статьи</a>
+    <a href="http://127.0.0.1:5000/view/scholarship/{{ email }}">Стипендии</a>
+    <a href="http://127.0.0.1:5000/view/championship/{{ email }}">Чемпионаты</a>
+</div>
+<br><br>
+<div class="form-content">
+    {% for item in award %}
+    <div id="form{{ loop.index }}">
+        <form action="" method="post">
+            <input type="hidden" name="item_index" value="{{ item.id }}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Группа</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Результат</th>
+                    <th scope="col">Грамоты</th>
+                    <th scope="col">Примечания</th>
+                    {% if item.approved == 0 %}
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ item.people.surname }} {{ item.people.name }} {{ item.people.s_name }}</td>
+                    <td>{{ item.people.group }}</td>
+                    <td>{{ item.name_event }}</td>
+                    <td>{{ item.result }}</td>
+                    <td>{{ item.diploma }}</td>
+                    <td>{{ item.notes }}</td>
+                    {% if item.approved == 0 %}
+                    <td>
+                        <button type="submit" name="action" value="confirm" class="btn btn-primary">Подтвердить</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="showRejectForm({{ loop.index }})" class="btn btn-primary">
+                            Отклонить
+                        </button>
+                    </td>
+                    {% endif %}
+                </tr>
+                </tbody>
+            </table>
+            <div id="rejectForm{{ loop.index }}" style="display: none; margin-top: 10px;">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="rejectComment{{ loop.index }}"
+                           name="reject_comment" placeholder="Укажите причину отклонения">
+                </div>
+                <div style="margin-top: 5px;">
+                    <button type="submit" name="action" value="reject" class="btn btn-primary">Отправить</button>
+                    <button type="button" onclick="hideRejectForm({{ loop.index }})" class="btn btn-primary">Отмена
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    function showRejectForm(index) {
+        document.getElementById('rejectForm' + index).style.display = 'block';
+        document.getElementById('rejectComment' + index).focus(); // Автофокус на поле ввода
+    }
+
+    function hideRejectForm(index) {
+        document.getElementById('rejectForm' + index).style.display = 'none';
+        document.getElementById('rejectComment' + index).value = '';
+    }
+</script>
+{% endblock %}

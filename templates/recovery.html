@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form class="login_form" method="post">
+        <h1 align="center">Забыл пароль</h1>
+        {% if error %}
+            <p class=error><strong>Произошла ошибка: </strong> {{ error }} <a href="http://127.0.0.1:5000/forgot">новый</a></p>
+        {% endif %}
+        <div class="form-group">
+            <label for="exampleInputEmail1">Адрес электронной почты</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria- describedby="emailHelp" placeholder="Введите адрес электронной почты">
+        </div>
+        <div class="form-group">
+            <label>Код для восстановления</label>
+            <input type="text" name="recovery" placeholder="Введите код восстановления" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Новый пароль</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Введите новый пароль" required>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Сбросить пароль</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

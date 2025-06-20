@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<div>
+    <a href="http://127.0.0.1:5000" class="btn btn-primary">Обратно</a>
+    <form method="post">
+        <h1 align="center">Служба поддержки</h1>
+        <br>
+        <div class="alert alert-info">
+            <h4>Здравствуйте!</h4>
+            <p>Для неавторизованных пользователей действует ограничение: вы можете отправить только одно обращение и должны дождаться ответа от администратора, прежде чем отправлять новое сообщение.</p>
+        </div>
+        <br>
+        {% if error %}
+            <p class="error"><strong>Произошла ошибка: </strong> {{ error }}</p>
+        {% endif %}
+        <div class="form-group">
+            <label for="exampleInputEmail1">Адрес электронной почты</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите ваш email для обратной связи" required>
+            <small id="emailHelp" class="form-text text-muted">Мы отправим ответ на указанный адрес</small>
+        </div>
+        <div class="form-group">
+            <label for="InputName">Как можно к Вам обращаться?</label>
+            <input type="text" name="name" class="form-control" id="InputName" placeholder="Введите Ваше имя или как к Вам обращаться" required>
+        </div>
+        <div class="form-group">
+            <label>Ваше сообщение</label>
+            <textarea class="form-control" name="message" id="messageTextarea" rows="5" placeholder="Опишите вашу проблему или вопрос подробно" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить обращение</button>
+    </form>
+</div>
+{% endblock %}

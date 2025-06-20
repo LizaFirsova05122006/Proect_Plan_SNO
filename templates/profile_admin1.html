@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br></br>
+<div>
+    <form class="profile_form" method="post" enctype="multipart/form-data">
+        <div class="flex-container">
+            <div class="svg-container">
+                <svg width="200" height="200" viewBox="0 0 510 627" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_6_29)">
+                        <path d="M102 337.5C84.9454 328.067 76.9375 328.182 67 343.5L6.49995 476C-6.69242 512.901 -0.131794 528.011 34 546L197 609L260 626.5L315.5 609L479.5 541C514.19 518.913 517.502 504.634 496.5 476L416.5 343.5C402.835 325.802 393.009 324.828 372 337.5L304.5 368C304.5 368 263.125 379.5 236 379.5C208.875 379.5 167.5 368 167.5 368L102 337.5Z"
+                              fill="black" stroke="black"/>
+                        <circle cx="238.5" cy="164.5" r="164.5" fill="black"/>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_6_29">
+                            <rect width="510" height="627" fill="white"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <div class="profile_text">
+                <h4>ФИО: {{ user.surname }} {{ user.name }} {{ user.s_name }}</h4>
+                <h4>Роль: Администратор</h4>
+                <h4>Группа: {{ user.group }}</h4>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="file">Сменить фото профиля:</label><br>
+            <input type="file" id="file" name="file" accept=".jpg, .png">
+        </div>
+        <button type="submit" class="btn btn-primary">Сменить</button>
+        <br></br>
+        <h1 align="center">Доступные функции</h1>
+    </form>
+</div>
+<div>
+    <form method="post">
+        <table class="table3">
+            <tbody>
+            <tr>
+                <td><a href="http://127.0.0.1:5000" class="btn btn-primary">Выйти из профиля</a></td>
+                <td><a href="http://127.0.0.1:5000/add/achievement/{{ email }}" class="btn btn-primary">Добавить достижение</a></td>
+                <td><a href="http://127.0.0.1:5000/confirm_request/{{ email }}" class="btn btn-primary">Заявки на
+                    вступление</a></td>
+                <td><a href="http://127.0.0.1:5000/users/{{ email }}" class="btn btn-primary">Пользователи</a></td>
+            </tr>
+            <tr>
+                <td><a href="http://127.0.0.1:5000/view/achievement/{{ email }}" class="btn btn-primary">Просмотреть достижения</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<a href="http://127.0.0.1:5000/chat/help/user/{{ email }}" class="image-button">
+    <img src="/static/chat_help.png" alt="Иконка помощи">
+</a>
+{% endblock %}
