@@ -1,0 +1,592 @@
+/* Aa */
+.alert-info {
+    background-color: #004C97;
+    color: white;
+}
+
+.arrow {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #004C97;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
+/* Bb */
+body {
+    color: black;
+    background-color: white;
+}
+
+.btn {
+    margin: auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.btn-primary {
+    background-color: #004C97;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #0C2340;
+    color: #ffffff;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Cc */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Dd */
+.dropdown-container {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-container2 {
+    position: relative;
+    width: 100%;
+}
+
+#dropdownInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    margin-top: auto;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Ff */
+form.login_form {
+    margin: 20px auto;
+    color: #000000;
+    width: 890px;
+    background-color: white;
+    border: 3px solid #004C97;
+    border-radius: 5px;
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.form-group {
+    display: block;
+    margin: 10px 0;
+}
+
+form.add_data_form {
+    margin: 20px auto;
+    color: #000000;
+    width: 890px;
+    background-color: white;
+    border: 3px solid #004C97;
+    border-radius: 5px;
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+form.confirm_form {
+    margin: 20px auto;
+    color: #000000;
+    width: 1800px;
+    background-color: white;
+    border: 3px solid #004C97;
+    border-radius: 5px;
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+form.profile_form {
+    margin: auto;
+    color: black;
+    width: 1200px;
+    background-color: white;
+    border: 3px solid #004C97;
+    border-radius: 5px;
+    padding: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.faq-container {
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+.faq-item {
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 1000px;
+}
+
+.faq-question {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.faq-question:hover {
+    background: #e9ecef;
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.faq-answer {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 20px 20px;
+    max-height: 500px;
+}
+
+.faq-item.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* Ii */
+.image-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0;
+}
+
+.image-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Ll */
+.level-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    margin-top: auto;
+}
+
+#levelDropdown {
+    background-color: white;
+    border-color: #ccc;
+}
+
+#levelInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white !important;
+    color: black;
+}
+
+/* Pp */
+.profile_text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 20px 0;
+    margin: auto 0;
+}
+
+.participation-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    margin-top: auto;
+}
+
+#participationDropdown {
+    background-color: white;
+    border-color: #ccc;
+}
+
+#participationInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white !important;
+    color: black;
+}
+
+/* Rr */
+.result-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+    margin-top: auto;
+}
+
+#resultDropdown {
+    background-color: white;
+    border-color: #ccc;
+}
+
+#resultInput {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white !important;
+    color: black;
+}
+
+/* Ss */
+.svg-container {
+    padding: 0;
+    text-align: left;
+    width: 300px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+/* Tt */
+.table {
+    width: 1600px;
+    margin: 0 auto 20px auto;
+    border: 3px solid #004C97;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.table th {
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    border-bottom: 2px solid #004C97;
+}
+
+.table td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+}
+
+.table2 {
+    width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 20px auto;
+    border: 3px solid #004C97;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.table2 th {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    border-bottom: 2px solid #004C97;
+}
+
+.table2 td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.table3 {
+    width: 1200px;
+    margin: 20px auto 20px auto;
+    border: 3px solid #004C97;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.table3 th {
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    border-bottom: 2px solid #004C97;
+}
+
+.table3 td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+}
+
+.table4 {
+    width: 1200px;
+    margin: 20px auto 20px auto;
+    border: 3px solid #004C97;
+    border-collapse: collapse;
+    box-sizing: border-box;
+}
+
+.table4 th {
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid gray;
+    border-bottom: 2px solid #004C97;
+}
+
+.table4 td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid gray;
+}
+
+#textInputDiv1 {
+    width: 100%;
+    padding-inline-start: 15px;
+}
+
+#textInput1 {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#textInputDiv2 {
+    width: 100%;
+    padding-inline-start: 15px;
+}
+
+#textInput2 {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#textInputDiv3 {
+    width: 100%;
+    padding-inline-start: 15px;
+}
+
+#textInput3 {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#textInputDiv4 {
+    width: 100%;
+    padding-inline-start: 15px;
+}
+
+#textInput4 {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#textInputDiv5 {
+    width: 100%;
+    padding-inline-start: 15px;
+}
+
+#textInput5 {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#textInputDiv7 {
+    width: 100%;
+    padding-inline-start: 15px;
+}
+
+#textInput7 {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.topnav {
+    background-color: #004C97;
+    overflow: hidden;
+    color: white;
+}
+
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #0C2340;
+    color: white;
+}
+
+.topnav a.active {
+    background-color: #0C2340;
+    color: white;
+}
